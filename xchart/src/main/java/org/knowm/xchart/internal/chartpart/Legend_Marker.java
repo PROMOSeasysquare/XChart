@@ -1,6 +1,9 @@
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
@@ -49,13 +52,8 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
       }
 
       Map<String, Rectangle2D> seriesTextBounds = getSeriesTextBounds(series);
-      float legendEntryHeight =
-          getLegendEntryHeight(
-              seriesTextBounds,
-              ((series.getLegendRenderType() == LegendRenderType.Line
-                      || series.getLegendRenderType() == LegendRenderType.Scatter)
-                  ? axesChartStyler.getMarkerSize()
-                  : BOX_SIZE));
+      int legendEntryHeight =
+          (int) getLegendEntryHeight(seriesTextBounds, axesChartStyler.getMarkerSize());
 
       // paint line and marker
       if (series.getLegendRenderType() == LegendRenderType.Line
@@ -84,12 +82,13 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
                   g,
                   startx + chart.getStyler().getLegendSeriesLineLength() / 2.0,
                   starty + legendEntryHeight / 2.0,
-                  axesChartStyler.getMarkerSize());
+                  legendEntryHeight);
         }
       } else { // bar/pie type series
 
         // paint inner box
-        Shape rectSmall = new Rectangle2D.Double(startx, starty, BOX_SIZE, BOX_SIZE);
+        Shape rectSmall =
+            new Rectangle2D.Double(startx, starty, legendEntryHeight, legendEntryHeight);
         g.setColor(series.getFillColor());
         g.fill(rectSmall);
 
@@ -121,9 +120,10 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
 
           double lineOffset = existingLineStyle.getLineWidth() * 0.5;
           outlinePath.moveTo(startx + lineOffset, starty + lineOffset);
-          outlinePath.lineTo(startx + lineOffset, starty + BOX_SIZE - lineOffset);
-          outlinePath.lineTo(startx + BOX_SIZE - lineOffset, starty + BOX_SIZE - lineOffset);
-          outlinePath.lineTo(startx + BOX_SIZE - lineOffset, starty + lineOffset);
+          outlinePath.lineTo(startx + lineOffset, starty + legendEntryHeight - lineOffset);
+          outlinePath.lineTo(
+              startx + legendEntryHeight - lineOffset, starty + legendEntryHeight - lineOffset);
+          outlinePath.lineTo(startx + legendEntryHeight - lineOffset, starty + lineOffset);
           outlinePath.closePath();
 
           g.draw(outlinePath);
@@ -138,17 +138,17 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
             startx
                 + chart.getStyler().getLegendSeriesLineLength()
                 + chart.getStyler().getLegendPadding();
-        paintSeriesText(g, seriesTextBounds, axesChartStyler.getMarkerSize(), x, starty);
+        paintSeriesText(g, seriesTextBounds, legendEntryHeight, x, starty);
       } else { // bar/pie type series
 
-        double x = startx + BOX_SIZE + chart.getStyler().getLegendPadding();
-        paintSeriesText(g, seriesTextBounds, BOX_SIZE, x, starty);
+        double x = startx + legendEntryHeight + chart.getStyler().getLegendPadding();
+        paintSeriesText(g, seriesTextBounds, legendEntryHeight, x, starty);
       }
 
       if (chart.getStyler().getLegendLayout() == Styler.LegendLayout.Vertical) {
         starty += legendEntryHeight + chart.getStyler().getLegendPadding();
       } else {
-        int markerWidth = BOX_SIZE;
+        int markerWidth = legendEntryHeight;
         if (series.getLegendRenderType() == LegendRenderType.Line) {
           markerWidth = chart.getStyler().getLegendSeriesLineLength();
         }
@@ -162,9 +162,6 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
   @Override
   public double getSeriesLegendRenderGraphicHeight(S series) {
 
-    return (series.getLegendRenderType() == LegendRenderType.Box
-            || series.getLegendRenderType() == LegendRenderType.BoxNoOutline)
-        ? BOX_SIZE
-        : axesChartStyler.getMarkerSize();
+    return axesChartStyler.getMarkerSize();
   }
 }
