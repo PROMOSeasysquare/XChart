@@ -349,7 +349,7 @@ public abstract class Legend_<ST extends Styler, S extends Series> implements Ch
     double multiLineOffset = 0.0;
 
     for (Map.Entry<String, Rectangle2D> entry : seriesTextBounds.entrySet()) {
-      // double height = entry.getValue().getHeight();
+      double height = entry.getValue().getHeight();
       // double centerOffsetY = (Math.max(markerSize, height) - height) / 2.0;
       double offsetY = markerSize / 4.0 * 3.0;
 
