@@ -167,8 +167,10 @@ public class ToolTips extends MouseAdapter implements ChartPart {
     //    System.out.println("topEdge = " + topEdge);
     //    System.out.println("bottomEdge = " + bottomEdge);
 
-    double x = tooltip.x + tooltip.w / 2 - annotationRectangle.getWidth() / 2 - MARGIN;
-    double y = tooltip.y - 3 * MARGIN - annotationRectangle.getHeight();
+    // double x = tooltip.x + tooltip.w / 2 - annotationRectangle.getWidth() / 2 - MARGIN;
+    // double y = tooltip.y - 3 * MARGIN - annotationRectangle.getHeight();
+    double y = tooltip.y - annotationRectangle.getHeight() / 0.7;
+    double x = tooltip.x - 3 * MARGIN - annotationRectangle.getWidth();
     //    System.out.println("x = " + x);
     //    System.out.println("y = " + y);
     //    x = Math.min(x, -w);
