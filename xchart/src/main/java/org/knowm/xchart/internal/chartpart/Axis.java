@@ -182,7 +182,10 @@ public class Axis<ST extends AxesChartStyler, S extends AxesChartSeries> impleme
               leftYAxisBounds.getY() + leftYAxisBounds.getHeight(),
               rightYAxisBounds.getY() + rightYAxisBounds.getHeight());
       double xOffset = leftYAxisBounds.getWidth() + leftYAxisBounds.getX();
-      double yOffset = maxYAxisY + axesChartStyler.getPlotMargin() - legendHeightOffset;
+      // TODO hart programmierte Abstände für uns, weil nciht klar ist, wieso in der BarChart beim
+      // Ändern der Font sich das so sehr verschiebt und wie darauf eingegangen werden kann
+      double yOffset =
+          maxYAxisY + axesChartStyler.getPlotMargin() - Math.min(legendHeightOffset, 25);
 
       double legendWidth = 0;
       if (axesChartStyler.getLegendPosition() == LegendPosition.OutsideE
