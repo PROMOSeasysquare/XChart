@@ -1,6 +1,7 @@
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -348,16 +349,19 @@ public abstract class Legend_<ST extends Styler, S extends Series> implements Ch
     double multiLineOffset = 0.0;
 
     for (Map.Entry<String, Rectangle2D> entry : seriesTextBounds.entrySet()) {
-
       double height = entry.getValue().getHeight();
-      double centerOffsetY = (Math.max(markerSize, height) - height) / 2.0;
+      // double centerOffsetY = (Math.max(markerSize, height) - height) / 2.0;
+      double offsetY = markerSize / 4.0 * 3.0;
 
       FontRenderContext frc = g.getFontRenderContext();
       TextLayout tl = new TextLayout(entry.getKey(), chart.getStyler().getLegendFont(), frc);
       Shape shape = tl.getOutline(null);
       AffineTransform orig = g.getTransform();
       AffineTransform at = new AffineTransform();
-      at.translate(x, starty + height + centerOffsetY + multiLineOffset);
+      at.translate(x, starty
+          // + height
+          // + centerOffsetY
+          + multiLineOffset + offsetY);
       g.transform(at);
       g.fill(shape);
       g.setTransform(orig);
