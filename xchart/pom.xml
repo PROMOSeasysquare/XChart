@@ -5,15 +5,59 @@
   <parent>
     <groupId>org.knowm.xchart</groupId>
     <artifactId>xchart-parent</artifactId>
-    <version>3.8.1-SNAPSHOT</version>
+    <version>3.8.0</version>
   </parent>
 
   <groupId>com.openpromos</groupId>
   <artifactId>xchart</artifactId>
-  <version>1.0.0</version>
+  <version>3.8.0-PROMOS.1-SNAPSHOT</version>
 
   <name>XChart Promos</name>
-  <description>For promos customised library forked from The core XChart library version 3.8.0</description>
+  <description>The core XChart library customized for PROMOS</description>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>${repo.id}</id>
+      <name>Private Repository</name>
+      <url>${repo.url}</url>
+    </snapshotRepository>
+    <repository>
+      <id>${repo.id}</id>
+      <name>Private Repository</name>
+      <url>${repo.url}</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <!-- Create and push versions to PROMOS infratructure -->
+      <plugin>
+        <groupId>com.amashchenko.maven.plugin</groupId>
+        <artifactId>gitflow-maven-plugin</artifactId>
+        <version>1.16.0</version>
+        <configuration>
+          <gitFlowConfig>
+            <!-- Use singel branch model -->
+            <productionBranch>master</productionBranch>
+            <developmentBranch>master</developmentBranch>
+            <versionTagPrefix>xchart-</versionTagPrefix>
+          </gitFlowConfig>
+          <commitMessages>
+            <!-- Add space to be included in the message after the commitMessagePrefix. Adding the space there does not work. -->
+            <releaseStartMessage xml:space="preserve"> Update versions for release</releaseStartMessage>
+            <releaseFinishMessage xml:space="preserve"> Update for next development version</releaseFinishMessage>
+          </commitMessages>
+          <!-- Push versioning commits to git when calling mvn gitflow:release -->
+          <pushRemote>true</pushRemote>
+          <verbose>true</verbose>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <commitMessagePrefix>[gitflow-maven-plugin]</commitMessagePrefix>
+  </properties>
 
   <dependencies>
     <dependency>
