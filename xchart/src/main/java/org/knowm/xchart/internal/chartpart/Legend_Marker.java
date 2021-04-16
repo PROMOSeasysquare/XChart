@@ -121,8 +121,8 @@ public class Legend_Marker<ST extends AxesChartStyler, S extends MarkerSeries>
           double lineOffset = existingLineStyle.getLineWidth() * 0.5;
           outlinePath.moveTo(startx + lineOffset, starty + lineOffset);
           outlinePath.lineTo(startx + lineOffset, starty + legendEntryHeight - lineOffset);
-          outlinePath.lineTo(startx + legendEntryHeight - lineOffset,
-              starty + legendEntryHeight - lineOffset);
+          outlinePath.lineTo(
+              startx + legendEntryHeight - lineOffset, starty + legendEntryHeight - lineOffset);
           outlinePath.lineTo(startx + legendEntryHeight - lineOffset, starty + lineOffset);
           outlinePath.closePath();
 

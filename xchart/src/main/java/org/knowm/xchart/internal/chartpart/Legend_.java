@@ -358,10 +358,13 @@ public abstract class Legend_<ST extends Styler, S extends Series> implements Ch
       Shape shape = tl.getOutline(null);
       AffineTransform orig = g.getTransform();
       AffineTransform at = new AffineTransform();
-      at.translate(x, starty
-          // + height
-          // + centerOffsetY
-          + multiLineOffset + offsetY);
+      at.translate(
+          x,
+          starty
+              // + height
+              // + centerOffsetY
+              + multiLineOffset
+              + offsetY);
       g.transform(at);
       g.fill(shape);
       g.setTransform(orig);
