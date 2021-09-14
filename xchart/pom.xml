@@ -8,10 +8,24 @@
     <version>3.8.1</version>
   </parent>
 
+  <groupId>com.openpromos</groupId>
   <artifactId>xchart</artifactId>
 
   <name>XChart</name>
   <description>The core XChart library</description>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>${repo.id}</id>
+      <name>Private Repository</name>
+      <url>${repo.url}</url>
+    </snapshotRepository>
+    <repository>
+      <id>${repo.id}</id>
+      <name>Private Repository</name>
+      <url>${repo.url}</url>
+    </repository>
+  </distributionManagement>
 
   <dependencies>
     <dependency>
