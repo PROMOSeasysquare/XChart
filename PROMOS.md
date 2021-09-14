@@ -63,7 +63,8 @@ Finally commit and push your changes to origin:
 ```
 git add xchart/pom.xml
 git commit -m "Prepare new upstream release 3.8.1-PROMOS.1-SNAPSHOT"
-git push --set-upstream origin promos/patch promos/3.8.1
+git push --force-with-lease origin promos/patch
+git push --set-upstream origin promos/3.8.1
 ```
 
 ## Build
@@ -124,6 +125,3 @@ git add xchart/pom.xml
 git commit -m "Prepare development version 3.8.0-PROMOS.2-SNAPSHOT"
 git push origin promos/3.8.0
 ```
-
-
-
