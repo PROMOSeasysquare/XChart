@@ -10,9 +10,10 @@
 
   <groupId>com.openpromos</groupId>
   <artifactId>xchart</artifactId>
+  <version>3.8.0-PROMOS.1-SNAPSHOT</version>
 
-  <name>XChart</name>
-  <description>The core XChart library</description>
+  <name>XChart Promos</name>
+  <description>The core XChart library customized for PROMOS</description>
 
   <distributionManagement>
     <snapshotRepository>
